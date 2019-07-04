@@ -78,7 +78,7 @@ object CassandraSparkBuild extends Build {
       packageBin := {
         val shaded = (assembly in shadedConnector).value
         val targetName = target.value
-        val expected = target.value / s"$namespace-${version.value}.jar"
+        val expected = target.value / s"$namespace-${version.value}-patched.jar"
         IO.move(shaded, expected)
         val log = streams.value.log
         log.info(s"""Shaded jar moved to $expected""".stripMargin)
@@ -205,7 +205,7 @@ object Artifacts {
       .exclude("org.scala-lang", "scala-compiler")
   }
 
-  val cassandraDriver         = "com.datastax.cassandra"  % "cassandra-driver-core"  % CassandraDriver driverExclusions() // ApacheV2
+  val cassandraDriver         = "com.datastax.cassandra"  % "cassandra-driver-core"  % "3.1.4-patched" driverExclusions() // ApacheV2
   val cassandraDriverMapping  = "com.datastax.cassandra"  % "cassandra-driver-mapping"  % CassandraDriver driverExclusions() // ApacheV2
   val commonsBeanUtils        = "commons-beanutils"       % "commons-beanutils"      % CommonsBeanUtils                 exclude("commons-logging", "commons-logging") // ApacheV2
   val config                  = "com.typesafe"            % "config"                 % Config         % "provided"  // ApacheV2
